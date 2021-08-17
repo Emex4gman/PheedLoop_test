@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
     return widgetList;
   }
 
-  List buidTree(List arry) {
+  List buildTree(List arry) {
     var roots = [], children = {};
 
     // find the top level nodes and hash the children based on parent
@@ -117,24 +117,21 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: setupPage,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(15),
-            child: _isLoading
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(child: CircularProgressIndicator()),
-                    ],
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ...resolveComments(buidTree(_commentListMap)),
-                    ],
-                  ),
-          ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(15),
+          child: _isLoading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(child: CircularProgressIndicator()),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...resolveComments(buildTree(_commentListMap)),
+                  ],
+                ),
         ),
       ),
     );
